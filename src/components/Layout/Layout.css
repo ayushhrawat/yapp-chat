@@ -1,0 +1,25 @@
+.app-layout {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Clerk styling overrides */
+.cl-rootBox {
+  height: 100vh;
+}
+
+.cl-card, .cl-socialButtonsBlockButton, .cl-internal-wid7nd {
+  border-radius: 12px !important;
+}
+
+.cl-primaryBtn {
+  background: #0084ff !important;
+  border-radius: 8px !important;
+}

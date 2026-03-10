@@ -1,0 +1,141 @@
+.chat-list {
+  flex: 1;
+  overflow-y: auto;
+  background: white;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Hide the old header */
+.chat-list-header {
+  display: none;
+}
+
+/* Custom Scrollbar */
+.chat-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat-list::-webkit-scrollbar-track {
+  background: #f8f9fa;
+}
+
+.chat-list::-webkit-scrollbar-thumb {
+  background: #dee2e6;
+  border-radius: 3px;
+}
+
+.chat-list::-webkit-scrollbar-thumb:hover {
+  background: #ced4da;
+}
+
+.chat-items {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.chat-item {
+  display: flex;
+  padding: 16px 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-bottom: 1px solid #f8f9fa;
+}
+
+.chat-item:hover {
+  background-color: #f8f9fa;
+}
+
+.chat-item.active {
+  background-color: #e7f5ff;
+  border-left: 3px solid #228be6;
+  padding-left: 17px;
+}
+
+.chat-avatar {
+  position: relative;
+  margin-right: 14px;
+}
+
+.chat-avatar-img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.avatar-placeholder {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ color: white;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.online-indicator {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 11px;
+  height: 11px;
+  background: #40c057;
+  border: 2px solid white;
+  border-radius: 50%;
+}
+
+.chat-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.chat-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.chat-name {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: #212529;
+}
+
+.chat-time {
+  font-size: 12px;
+  color: #adb5bd;
+  font-weight: 400;
+}
+
+.chat-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chat-preview {
+  margin: 0;
+  font-size: 14px;
+  color: #868e96;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 200px;
+}
+
+.unread-badge {
+  background: #228be6;
+  color: white;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius:12px;
+  min-width: 20px;
+  text-align: center;
+}

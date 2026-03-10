@@ -1,0 +1,306 @@
+/* Dark Mode Theme Variables */
+[data-theme='dark'] {
+  /* Background colors */
+  --bg-primary: #0f0f1a;
+  --bg-secondary: #1a1a2e;
+  --bg-tertiary: #252542;
+  
+  /* Text colors */
+  --text-primary: #ffffff;
+  --text-secondary: #d0d0d0;
+  --text-muted: #808090;
+  
+  /* Border and shadows */
+  --border-color: #353550;
+  --shadow-color: rgba(0, 0, 0, 0.4);
+  
+  /* Scrollbar */
+  --scrollbar-track: #1a1a2e;
+  --scrollbar-thumb: #454565;
+}
+
+/* Light Mode Theme Variables */
+[data-theme='light'] {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --bg-tertiary: #e9ecef;
+  
+  --text-primary: #212529;
+  --text-secondary: #495057;
+  --text-muted: #868e96;
+  
+  --border-color: #e9ecef;
+  --shadow-color: rgba(0, 0, 0, 0.08);
+  
+  --scrollbar-track: #f1f1f1;
+  --scrollbar-thumb: #888;
+}
+
+/* Apply base styles */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ChatPage specific dark styles */
+[data-theme='dark'] .chat-page {
+  background: var(--bg-primary);
+}
+
+[data-theme='dark'] .sidebar {
+  background: var(--bg-secondary);
+  border-right-color: var(--border-color);
+  box-shadow: 0 1px 3px var(--shadow-color);
+}
+
+[data-theme='dark'] .sidebar-header {
+  border-bottom-color: var(--border-color);
+}
+
+[data-theme='dark'] .search-container {
+  border-bottom-color: var(--border-color);
+}
+
+[data-theme='dark'] .search-input {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .search-input:focus {
+  background: var(--border-color);
+}
+
+[data-theme='dark'] .search-results {
+  background: var(--bg-secondary);
+  border-color: var(--border-color);
+  box-shadow: 0 8px 24px var(--shadow-color);
+}
+
+[data-theme='dark'] .search-result-item {
+  border-bottom-color: var(--border-color);
+}
+
+[data-theme='dark'] .search-result-item:hover {
+  background-color: var(--bg-tertiary);
+}
+
+[data-theme='dark'] .search-info h4 {
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .search-info .status {
+  color: var(--text-muted);
+}
+
+[data-theme='dark'] .no-results {
+  color: var(--text-muted);
+}
+
+[data-theme='dark'] .settings-icon-btn {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .settings-icon-btn:hover {
+  background: var(--border-color);
+}
+
+/* ChatList dark mode */
+[data-theme='dark'] .chat-list {
+  background: var(--bg-secondary);
+}
+
+[data-theme='dark'] .chat-item {
+  border-bottom-color: var(--border-color);
+}
+
+[data-theme='dark'] .chat-item:hover {
+  background-color: var(--bg-tertiary);
+}
+
+[data-theme='dark'] .chat-item.active {
+  background-color: rgba(102, 126, 234, 0.2);
+  border-left-color: #667eea;
+}
+
+[data-theme='dark'] .chat-name {
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .chat-time {
+  color: var(--text-muted);
+}
+
+[data-theme='dark'] .chat-preview {
+  color: var(--text-secondary);
+}
+
+/* ChatWindow dark mode */
+[data-theme='dark'] .chat-window {
+  background: var(--bg-secondary);
+}
+
+[data-theme='dark'] .chat-header {
+  background: var(--bg-secondary);
+  border-bottom-color: var(--border-color);
+}
+
+[data-theme='dark'] .header-info h3 {
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .status {
+  color: var(--text-muted);
+}
+
+[data-theme='dark'] .header-btn {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .header-btn:hover {
+  background: var(--border-color);
+}
+
+[data-theme='dark'] .chat-messages {
+  background: var(--bg-primary);
+}
+
+[data-theme='dark'] .message.received .message-bubble {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme='dark'] .message-time {
+  color: var(--text-muted);
+}
+
+[data-theme='dark'] .chat-input-area {
+  background: var(--bg-secondary);
+  border-top-color: var(--border-color);
+}
+
+[data-theme='dark'] .chat-input {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .chat-input:focus {
+  background: var(--border-color);
+}
+
+/* Settings Modal dark mode */
+[data-theme='dark'] .settings-modal {
+  background: var(--bg-secondary) !important;
+}
+
+[data-theme='dark'] .settings-header {
+  border-bottom-color: var(--border-color);
+  background: var(--bg-secondary) !important;
+}
+
+[data-theme='dark'] .settings-header h2 {
+ color: var(--text-primary) !important;
+}
+
+[data-theme='dark'] .close-settings {
+ background: var(--bg-tertiary);
+ color: var(--text-primary);
+}
+
+[data-theme='dark'] .close-settings:hover {
+ background: var(--border-color);
+}
+
+[data-theme='dark'] .setting-section h3 {
+ color: var(--text-muted) !important;
+}
+
+[data-theme='dark'] .about-header h3 {
+ color: var(--text-muted) !important;
+}
+
+[data-theme='dark'] .expand-btn {
+ color: var(--text-muted) !important;
+}
+
+[data-theme='dark'] .setting-option label {
+ color: var(--text-primary);
+}
+
+[data-theme='dark'] .about-content {
+ background: var(--bg-tertiary) !important;
+}
+
+/* Profile popup dark mode */
+[data-theme='dark'] .profile-details-popup {
+  background: var(--bg-secondary);
+  box-shadow: 0 8px 24px var(--shadow-color);
+}
+
+[data-theme='dark'] .profile-name-large {
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .profile-email-large {
+  color: var(--text-muted);
+}
+
+[data-theme='dark'] .profile-section h4 {
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .info-row label {
+  color: var(--text-muted);
+}
+
+[data-theme='dark'] .info-row span {
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .external-account {
+  background: var(--bg-tertiary);
+}
+
+[data-theme='dark'] .provider-name {
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .no-accounts {
+  color: var(--text-muted);
+}
+
+/* Scrollbar for dark mode */
+[data-theme='dark'] ::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+[data-theme='dark'] ::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+}
+
+[data-theme='dark'] .chat-list::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+[data-theme='dark'] .chat-list::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+}
+
+[data-theme='dark'] .chat-messages::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+[data-theme='dark'] .chat-messages::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+}
+
+[data-theme='dark'] .settings-modal::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+[data-theme='dark'] .settings-modal::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+}

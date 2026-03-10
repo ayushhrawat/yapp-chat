@@ -1,0 +1,113 @@
+.faq-page {
+  min-height: 100vh;
+  background: var(--bg-primary);
+  padding: 40px 20px;
+  overflow-y: auto;
+  height: 100vh;
+}
+
+.faq-header {
+  max-width: 800px;
+  margin: 0 auto 40px;
+  text-align: center;
+}
+
+.back-btn {
+  background: var(--bg-tertiary);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+ color: var(--text-primary);
+  font-size: 16px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: all 0.2s;
+}
+
+.back-btn:hover {
+  background: var(--border-color);
+  transform: translateX(-5px);
+}
+
+.faq-header h1 {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 700;
+ color: var(--text-primary);
+}
+
+.faq-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.faq-item {
+  background: var(--bg-secondary);
+  border-radius:12px;
+  padding: 24px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+.faq-question {
+  margin: 0 0 12px 0;
+  font-size: 18px;
+  font-weight: 600;
+ color: var(--text-primary);
+}
+
+.faq-answer {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+ color: var(--text-secondary);
+}
+
+/* Dark mode support */
+[data-theme='dark'] .faq-page {
+  background: var(--bg-primary);
+}
+
+[data-theme='dark'] .back-btn {
+  background: var(--bg-tertiary);
+ color: var(--text-primary);
+}
+
+[data-theme='dark'] .back-btn:hover {
+  background: var(--border-color);
+}
+
+[data-theme='dark'] .faq-header h1 {
+ color: var(--text-primary);
+}
+
+[data-theme='dark'] .faq-item {
+  background: var(--bg-secondary);
+  box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+[data-theme='dark'] .faq-question {
+ color: var(--text-primary);
+}
+
+[data-theme='dark'] .faq-answer {
+ color: var(--text-secondary);
+}
+
+/* Custom scrollbar for FAQ page */
+.faq-page::-webkit-scrollbar {
+  width: 8px;
+}
+
+.faq-page::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+.faq-page::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 4px;
+}
+
+.faq-page::-webkit-scrollbar-thumb:hover {
+  background: var(--border-color);
+}
