@@ -13,9 +13,27 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 
-// Health check endpoint
+// Health check endpoint - MUST be before other routes
 app.get('/health', (req, res) => {
-  res.json({ status: 'ok', uptime: process.uptime() });
+  console.log('✅ Health check requested');
+  res.json({ 
+    status: 'ok', 
+    uptime: process.uptime(),
+    timestamp: new Date().toISOString(),
+    memory: process.memoryUsage().heapUsed
+  });
+});
+
+// Debug route to verify Express is working
+app.get('/', (req, res) => {
+  res.json({ 
+    message: 'Yapp Chat Backend API',
+    version: '1.0.0',
+    endpoints: {
+      health: '/health',
+      api: '/api/*'
+    }
+  });
 });
 
 // MongoDB connection
