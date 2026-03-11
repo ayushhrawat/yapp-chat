@@ -13,6 +13,11 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok', uptime: process.uptime() });
+});
+
 // MongoDB connection
 const MONGODB_URI = process.env.VITE_MONGODB_URI;
 const DB_NAME = process.env.VITE_MONGODB_DATABASE || 'yapp-chat';
