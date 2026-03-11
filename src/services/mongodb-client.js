@@ -44,28 +44,65 @@ return { success: false, error: error.message };
 };
 
 /**
- * 🔍 Search users by username or email
+ * 🔍 Search users by username or email (MongoDB only)
  */
 export const searchUsersInMongoDB = async (searchTerm, currentUserId) => {
-  try {
-   if (!searchTerm || !searchTerm.trim()) {
-     return [];
-    }
+ try {
+  if (!searchTerm || !searchTerm.trim()) {
+    return [];
+   }
 
   console.log('🔍 Searching users in MongoDB:', searchTerm);
 
   const response = await fetch(
-      `${API_URL}/api/users/search?query=${encodeURIComponent(searchTerm)}&currentUserId=${encodeURIComponent(currentUserId)}`
+     `${API_URL}/api/users/search?query=${encodeURIComponent(searchTerm)}&currentUserId=${encodeURIComponent(currentUserId)}`
     );
 
   const results = await response.json();
     
   console.log(`✅ Found ${results.length} user(s):`, results);
-   return results;
-  } catch (error) {
+  return results;
+ } catch (error) {
   console.error('❌ Error searching users:', error);
-   return [];
+  return [];
+ }
+};
+
+/**
+ * 🌟 Search ALL Clerk users and filter by keyword
+ * Fetches all users from Clerk API, then filters locally
+ */
+export const searchAllClerkUsers = async (searchTerm, currentUserId) => {
+ try {
+  if (!searchTerm || !searchTerm.trim()) {
+    return [];
+   }
+
+  console.log('🌟 Searching ALL Clerk users for:', searchTerm);
+
+  // Fetch all users from our backend endpoint
+  const response = await fetch(
+     `${API_URL}/api/clerk/all-users?query=${encodeURIComponent(searchTerm)}&currentUserId=${encodeURIComponent(currentUserId)}`,
+     {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+       }
+     }
+    );
+
+  if (!response.ok) {
+   throw new Error(`Failed to fetch Clerk users: ${response.statusText}`);
   }
+
+  const results = await response.json();
+    
+  console.log(`✅ Found ${results.length} matching Clerk users`);
+  return results;
+ } catch (error) {
+  console.error('❌ Error searching Clerk users:', error);
+  return [];
+ }
 };
 
 /**

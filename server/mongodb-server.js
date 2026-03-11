@@ -172,37 +172,38 @@ app.post('/api/users/sync', async (req, res) => {
 
 // Search users
 app.get('/api/users/search', async (req, res) => {
-  try {
-   if (!db) {
-     return res.status(500).json({ error: 'Database not connected' });
-    }
+ try {
+  if (!db) {
+    return res.status(500).json({ error: 'Database not connected' });
+   }
 
-   const { query, currentUserId} = req.query;
-   if (!query) {
-     return res.json([]);
-    }
+  const { query, currentUserId} = req.query;
+  if (!query || !query.trim()) {
+    return res.json([]);
+   }
 
-   const usersCollection = db.collection('users');
-   const normalizedTerm = query.toLowerCase().trim();
+  const usersCollection = db.collection('users');
+  const normalizedTerm = query.toLowerCase().trim();
 
-   const results = await usersCollection.find({
-      $and: [
-        {
-          $or: [
-            { username: { $regex: `^${normalizedTerm}`, $options: 'i' } },
-            { email: { $regex: `^${normalizedTerm}`, $options: 'i' } }
-          ]
-        },
-        { clerkId: { $ne: currentUserId} }
-      ]
-    }).limit(10).toArray();
+  // More flexible search: match anywhere in username or email
+  const results = await usersCollection.find({
+     $and: [
+       {
+         $or: [
+           { username: { $regex: normalizedTerm, $options: 'i' } },  // Match anywhere
+           { email: { $regex: normalizedTerm, $options: 'i' } }      // Match anywhere
+         ]
+       },
+       { clerkId: { $ne: currentUserId} }
+     ]
+   }).limit(20).toArray();  // Increased limit to 20 results
 
-   console.log(`🔍 Found ${results.length} users for query: ${query}`);
-   res.json(results);
-  } catch (error) {
-   console.error('❌ Error searching users:', error);
-   res.status(500).json({ error: error.message });
-  }
+  console.log(`🔍 Found ${results.length} users for query: ${query}`);
+  res.json(results);
+ } catch (error) {
+  console.error('❌ Error searching users:', error);
+  res.status(500).json({ error: error.message });
+ }
 });
 
 // Update online status
@@ -229,30 +230,76 @@ app.post('/api/users/status', async (req, res) => {
 
 // Get users by IDs
 app.post('/api/users/by-ids', async (req, res) => {
-  try {
-  if (!db) {
+ try {
+ if (!db) {
  return res.status(500).json({ error: 'Database not connected' });
-    }
+   }
 
-   const { userIds } = req.body;
+  const { userIds } = req.body;
+  
+ if (!userIds || !Array.isArray(userIds)) {
+ return res.json([]);
+   }
    
-  if (!userIds || !Array.isArray(userIds)) {
-  return res.json([]);
-    }
+  console.log('👥 Fetching users by IDs:', userIds);
+  
+  const usersCollection = db.collection('users');
+  const users = await usersCollection.find({
+    clerkId: { $in: userIds }
+  }).toArray();
+  
+  console.log('✅ Found', users.length, 'users');
+res.json(users);
+ } catch (error) {
+  console.error('❌ Error fetching users:', error);
+res.status(500).json({ error: error.message });
+ }
+});
+
+// Get ALL Clerk users and filter by query
+app.get('/api/clerk/all-users', async (req, res) => {
+ try {
+  if (!db) {
+    return res.status(500).json({ error: 'Database not connected' });
+   }
+
+  const { query, currentUserId} = req.query;
+  
+  if (!query || !query.trim()) {
+    return res.json([]);
+   }
+
+  console.log('🌟 Fetching ALL Clerk users, filtering for:', query);
+
+  // Get ALL users from MongoDB (which syncs with Clerk)
+  const usersCollection = db.collection('users');
+  const normalizedTerm = query.toLowerCase().trim();
+
+  // Fetch all users except current user
+  const allUsers = await usersCollection.find({
+    clerkId: { $ne: currentUserId }
+  }).toArray();
+
+  console.log(`📊 Total users in database: ${allUsers.length}`);
+
+  // Filter locally by keyword (matches anywhere in username, email, or display name)
+  const filteredUsers = allUsers.filter(user => {
+    const username = (user.username || '').toLowerCase();
+    const email = (user.email || '').toLowerCase();
+    const displayName = (user.displayName || '').toLowerCase();
     
-   console.log('👥 Fetching users by IDs:', userIds);
-   
-   const usersCollection = db.collection('users');
-   const users = await usersCollection.find({
-     clerkId: { $in: userIds }
-   }).toArray();
-   
-   console.log('✅ Found', users.length, 'users');
- res.json(users);
-  } catch (error) {
-   console.error('❌ Error fetching users:', error);
- res.status(500).json({ error: error.message });
-  }
+    // Match if query appears ANYWHERE in any field
+    return username.includes(normalizedTerm) ||
+           email.includes(normalizedTerm) ||
+           displayName.includes(normalizedTerm);
+  });
+
+  console.log(`✅ Filtered to ${filteredUsers.length} matching users`);
+  res.json(filteredUsers);
+ } catch (error) {
+  console.error('❌ Error fetching Clerk users:', error);
+  res.status(500).json({ error: error.message });
+ }
 });
 
 // Get conversations
@@ -316,9 +363,9 @@ app.post('/api/conversations', async (req, res) => {
    
    const conversationsCollection = db.collection('conversations');
 
+   // Find existing conversation with EXACT participant match
    const existingConv = await conversationsCollection.findOne({
-     participants: { $all: [participant1Id, participant2Id] },
-     participants: { $size: 2 }
+     participants: { $all: [participant1Id, participant2Id], $size: 2 }
     });
 
   if (existingConv) {

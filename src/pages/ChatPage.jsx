@@ -8,7 +8,8 @@ import { SocketProvider, useSocket } from '../contexts/SocketContext';
 import { useTheme } from '../contexts/ThemeContext';
 import { useNavigate } from 'react-router-dom';
 import { 
-  searchUsersInMongoDB, 
+  searchUsersInMongoDB,
+  searchAllClerkUsers,  // NEW: Fetch all Clerk users
   createOrGetConversation,
   getUserConversations,
   markMessagesAsRead,
@@ -262,29 +263,34 @@ console.log('📥 Refreshed conversations:', freshConvos.length);
  }, [activeChat, socket, isConnected]);
 
  const handleSearchUsers = async (query) => {
-  setSearchQuery(query);
-    
-  if (!query.trim()) {
+ setSearchQuery(query);
+   
+ if (!query.trim()) {
   setSearchResults([]);
   setIsSearching(false);
-  return;
-  }
+ return;
+ }
 
-  try {
-  const results = await searchUsersInMongoDB(query, user.id);
+ try {
+  console.log('🔍 Searching ALL Clerk users matching:', query);
+  
+  // Fetch all users from Clerk and filter by query
+  const results = await searchAllClerkUsers(query, user.id);
+  
   const formattedResults = results.map(result => ({
-    ...result,
-    display_name: result.username || result.email?.split('@')[0] || 'User'
-   }));
+   ...result,
+   display_name: result.username || result.email?.split('@')[0] || 'User'
+  }));
 
+  console.log(`✅ Found ${formattedResults.length} matching users`);
   setSearchResults(formattedResults);
   setIsSearching(formattedResults.length > 0);
-  } catch (error) {
+ } catch (error) {
   console.error('Error searching users:', error);
   setSearchResults([]);
   setIsSearching(false);
-  }
- };
+ }
+};
 
  const handleStartConversation = async (targetUser) => {
   try {
