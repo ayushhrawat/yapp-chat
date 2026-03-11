@@ -1,0 +1,65 @@
+{
+  "name": "yapp-chat-backend",
+  "description": "Yapp Chat Backend - Socket.IO and MongoDB API",
+  "repository": "https://github.com/yourusername/yapp-chat",
+  "logo": "https://avatars.githubusercontent.com/u/12345678?v=4",
+  "keywords": ["chat", "socket.io", "mongodb", "react", "clerk"],
+  "env": {
+    "NODE_ENV": {
+      "description": "Node environment",
+      "value": "production"
+    },
+    "PORT": {
+      "description": "Server port",
+      "value": "3001"
+    },
+    "VITE_MONGODB_URI": {
+      "description": "MongoDB connection string",
+      "value": ""
+    },
+    "VITE_MONGODB_DATABASE": {
+      "description": "MongoDB database name",
+      "value": "yapp-chat"
+    },
+    "VITE_CLERK_PUBLISHABLE_KEY": {
+      "description": "Clerk publishable key",
+      "value": ""
+    },
+    "CLERK_SECRET_KEY": {
+      "description": "Clerk secret key",
+      "value": ""
+    },
+    "VITE_ZEGO_APP_ID": {
+      "description": "Zego App ID",
+      "value": ""
+    },
+    "VITE_ZEGO_SERVER_SECRET": {
+      "description": "Zego Server Secret",
+      "value": ""
+    },
+    "VITE_SERVER_URL": {
+      "description": "Server URL (will be set after deployment)",
+      "value": ""
+    },
+    "SUPABASE_SERVICE_KEY": {
+      "description": "Supabase Service Key for webhook integration",
+      "value": ""
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "eco"
+    }
+  },
+  "addons": [
+    {
+      "plan": "heroku-redis:mini"
+    }
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}
