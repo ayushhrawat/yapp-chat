@@ -498,8 +498,14 @@ app.post('/api/messages/read', async (req, res) => {
   }
 });
 
-server.listen(PORT, () => {
- console.log(`Socket.IO server running on port ${PORT}`);
- console.log(`Visit http://localhost:${PORT}/health`);
- console.log(`MongoDB API available at http://localhost:${PORT}/api/`);
-});
+// Export app for Vercel serverless deployment
+export { app, server };
+
+// Only start server if not in Vercel/serverless environment
+if (process.env.VERCEL !== '1') {
+  server.listen(PORT, () => {
+    console.log(`Socket.IO server running on port ${PORT}`);
+    console.log(`Visit http://localhost:${PORT}/health`);
+    console.log(`MongoDB API available at http://localhost:${PORT}/api/`);
+  });
+}
